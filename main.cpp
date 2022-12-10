@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main() {
-	char str[] = "name=hello\r\r\n\npass=12345\r\nuser_id=55555\nhhfdjkkjbvg=jjjhhh\rbjjjggg=hhh\rhhhffbnn";
+	char str[] = "name=hello\r\npass=12345\r\nuser_id=55555\r\nhhfdjkkjbvg=jjjhhh\r\nbjjjggg=hhh\r\nhhhffbnn";
 	
 	bool START = true, END = false;
 	char KEY[1024] = {0};
