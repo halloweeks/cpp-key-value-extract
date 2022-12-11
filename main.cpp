@@ -174,10 +174,14 @@ int main() {
 	config.parse(str);
 	
 	std::cout << std::boolalpha;
-	std::cout << "key username exist: " << config.isset("username") << "\n";
-	std::cout << "value of username: " << config.value("username").String() << "\n";
+	std::cout << "key username exist: '" << config.isset("username") << "'\n";
+	std::cout << "value of username: '" << config.value("username").String() << "'\n";
 	
-	std::cout << "key email exist: " << config.isset("email") << "\n";
-	std::cout << "value of email: " << config.value("email").String() << "\n";
+	std::cout << "key email exist: '" << config.isset("email") << "'\n";
+	std::cout << "value of email: '" << config.value("email").String() << "'\n";
+	
+	std::cout << "key password exist: '" << config.isset("email") << "'\n";
+	std::cout << "value of password: '" << config.value("email").String() << "'\n";
+	
 	return 0;
 }
