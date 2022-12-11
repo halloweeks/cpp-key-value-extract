@@ -11,10 +11,11 @@ g++ main.cpp -o main
 ## Output
 ```
 $ ./main
-KEY: 'name' VALUE: 'hello'
-KEY: 'pass' VALUE: '12345'
-KEY: 'user_id' VALUE: '55555'
-KEY: 'hhfdjkkjbvg' VALUE: 'jjjhhh'
-KEY: 'bjjjggg' VALUE: 'hhh'
+key username exist: 'true'
+value of username: 'user123'
+key email exist: 'true'
+value of email: 'email@email.com'
+key password exist: 'true'
+value of password: 'email@email.com'
 $
 ```
