@@ -1,3 +1,14 @@
+## Clone this repository
+```
+git clone https://github.com/halloweeks/cpp-key-value-extract.git
+```
+<p>After cloning is complete</p>
+
+```
+cd cpp-key-value-extract
+```
+
+
 ## Compile
 ```
 g++ main.cpp -o main
