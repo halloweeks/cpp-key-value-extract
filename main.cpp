@@ -4,14 +4,14 @@
 
 class config {
 	private:
-	char KEY[1024] = {0};
-	char VALUE[1024] = {0};
+	char KEY[100] = {0};
+	char VALUE[100] = {0};
 	bool START = true, END = false;
 	int index = 0;
 	std::vector <std::string> keys, values;
 	std::string data;
 	public:
-	void parse(const char *);
+	bool parse(const char *);
 	bool isset(std::string);
 	config& value(std::string);
 	bool Bool();
@@ -27,7 +27,8 @@ class config {
 	std::string String();
 };
 
-void config::parse(const char *str) {
+// extract key value
+bool config::parse(const char *str) {
 	for (long int i = 0; i < strlen(str)+1; i++) {
 		if (START) {
 			if (str[i] == '=') {
@@ -36,8 +37,11 @@ void config::parse(const char *str) {
 			} else {
 				if (str[i] != '\r') {
 					if (str[i] != '\n') {
-						if (index != 1024) {
+						// key must be less than 100 characters
+						if (index != 100) {
 							KEY[index++] = str[i];
+						} else {
+							return false;
 						}
 					}
 				}
@@ -49,8 +53,11 @@ void config::parse(const char *str) {
 			} else {
 				if (str[i] != '\r') {
 					if (str[i] != '\n') {
-						if (index != 1024) {
+						// value must be less than 100 characters
+						if (index != 100) {
 							VALUE[index++] = str[i];
+						} else {
+							return false;
 						}
 					}
 				}
@@ -58,13 +65,14 @@ void config::parse(const char *str) {
 			if (END) {
 				keys.push_back(KEY);
 				values.push_back(VALUE);
-				memset(KEY, 0, 1024);
-				memset(VALUE, 0, 1024);
+				memset(KEY, 0, 100);
+				memset(VALUE, 0, 100);
 				START = true;
 				END = false;
 			}
 		}
 	}
+	return true;
 }
 
 bool config::isset(std::string key) {
@@ -169,9 +177,14 @@ std::string config::String() {
 config config;
 
 int main() {
-	const char *str = "username=user123\r\nemail=email@email.com\r\npassword=1234";
+	const char *str = "username=user123\r\nemail=email@email.com\r\npassword=123100";
 	
-	config.parse(str);
+	if (config.parse(str)) {
+		std::cout << "Key value parse done\n";
+	} else {
+		std::cout << "Failed to parse key value\n";
+		return -1;
+	}
 	
 	std::cout << std::boolalpha;
 	std::cout << "key username exist: '" << config.isset("username") << "'\n";
@@ -180,8 +193,8 @@ int main() {
 	std::cout << "key email exist: '" << config.isset("email") << "'\n";
 	std::cout << "value of email: '" << config.value("email").String() << "'\n";
 	
-	std::cout << "key password exist: '" << config.isset("email") << "'\n";
-	std::cout << "value of password: '" << config.value("email").String() << "'\n";
+	std::cout << "key password exist: '" << config.isset("password") << "'\n";
+	std::cout << "value of password: '" << config.value("password").String() << "'\n";
 	
 	return 0;
 }
